@@ -1,0 +1,332 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat";
+}
+
+body {
+    background-color: #d2dae2;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+#authModal {
+    position: absolute;
+    top: -300px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #808e9b;
+    width: 400px;
+    height: 220px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    user-select: none;
+    justify-content: space-evenly;
+    transition: 0.5s;
+    opacity: 0;
+}
+
+#authModal h2 {
+    color: #1e272e;
+    font-size: 28px;
+}
+
+#authModal input {
+    text-align: center;
+    outline: none;
+    background-color: #d2dae2;
+    width: 200px;
+    height: 36px;
+    border: 2px solid #1e272e;
+    border-radius: 18px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#authModal input::placeholder {
+    color: #485460;
+}
+
+#authModal button {
+    background-color: #485460;
+    outline: none;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 20px;
+    color: #d2dae2;
+    transition: 0.15s;
+    cursor: pointer;
+}
+
+#authModal button:active {
+    transform: scale(0.8);
+}
+
+#classesContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#classesContainer > div {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    justify-content: center;
+    max-height: 100%;
+    overflow: auto;
+    padding: 100px 50px;
+    box-sizing: border-box;
+}
+
+#classesContainer > div::-webkit-scrollbar, #sheduleContainer > div:last-child::-webkit-scrollbar {
+    width: 10px;
+}
+   
+#classesContainer > div::-webkit-scrollbar-thumb, #sheduleContainer > div:last-child::-webkit-scrollbar-thumb {
+    background-color: #485460;
+    border-radius: 5px;
+}
+
+#classesContainer > div > div {
+    width: 200px;
+    height: 200px;
+    background-color: #808e9b;
+    border-radius: 16px;
+    font-size: 56px;
+    font-weight: 600;
+    margin: 20px;
+    line-height: 200px;
+    text-align: center;
+    color: #1e272e;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
+}
+
+#classesContainer > div > div:last-child {
+    background-color: #05c46b;
+    color: #ffffff;
+    font-size: 72px;
+}
+
+#classesContainer > div > div:hover {
+    transform: scale(1.1);
+}
+
+#classesContainer > div > div:active {
+    background-color: #485460;
+    transform: scale(0.9);
+}
+
+#addClassModal {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0);
+    transition: 0.3s;
+}
+
+#addClassModal div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #d2dae2;
+    width: 440px;
+    height: 220px;
+    border-radius: 24px;
+    transform: scale(0);
+    transition: 0.3s;
+}
+
+#addClassModal h2 {
+    color: #1e272e;
+    font-size: 28px;
+}
+
+#addClassModal input {
+    text-align: center;
+    outline: none;
+    background-color: #808e9b;
+    width: 220px;
+    height: 36px;
+    border: 2px solid #1e272e;
+    border-radius: 18px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+#addClassModal input::placeholder {
+    color: #d2dae2;
+    opacity: 0.8;
+}
+
+#addClassModal button {
+    background-color: #1e272e;
+    outline: none;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 20px;
+    color: #d2dae2;
+    transition: 0.15s;
+    cursor: pointer;
+}
+
+#addClassModal button:active {
+    transform: scale(0.8);
+}
+
+#sheduleContainer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    user-select: none;
+    transition: 0.5s;
+}
+
+#sheduleContainer > div:first-child {
+    display: flex;
+    height: 90px;
+    padding: 0 24px;
+    align-items: center;
+    transform: translateY(-120px);
+    transition: 0.3s 0.5s;
+}
+
+#sheduleContainer > div:first-child::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+    top: 90px;
+    left: 0;
+}
+
+#sheduleContainer > div:first-child > div {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+#sheduleContainer > div:first-child h2 {
+    font-size: 48px;
+    color: #1e272e;
+    margin-left: 100px;
+    margin-right: 40px;
+}
+
+#sheduleContainer > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px;
+    box-sizing: border-box;
+    max-height: calc(100% - 90px);
+    overflow: auto;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#sheduleContainer > div:last-child > div {
+    margin: 30px;
+    background-color: #808e9b;
+    padding: 24px;
+    border-radius: 16px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: 0.3s;
+    min-width: 344px;
+}
+
+#sheduleContainer > div:last-child > div > div:first-child > img {
+    width: 26px;
+    height: 26px;
+    background-color: #ffffff;
+    padding: 12px;
+    border-radius: 25px;
+}
+
+#sheduleContainer > div:last-child > div > div:first-child {
+    display: flex;
+    align-items: center;
+}
+
+#sheduleContainer > div:last-child > div > div:last-child:not(:empty) {
+    margin-top: 24px;
+}
+
+#sheduleContainer > div:last-child > div h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    flex: 1;
+}
+
+#renameClassButton {
+    position: relative;
+    top: -2px;
+}
+
+#closeSheduleButton, #deleteClassButton, #renameClassButton, .lessonItem img, #sheduleContainer > div:last-child > div > div:first-child > img {
+    transition: 0.15s;
+    cursor: pointer;
+}
+
+#closeSheduleButton:hover, #deleteClassButton:hover, #renameClassButton:hover, .lessonItem img:hover, #sheduleContainer > div:last-child > div > div:first-child > img:hover {
+    transform: scale(1.2);
+}
+
+#closeSheduleButton:active, #deleteClassButton:active, #renameClassButton:active, .lessonItem img:active, #sheduleContainer > div:last-child > div > div:first-child > img:active {
+    transform: scale(0.8);
+}
+
+.leftPositioned {
+    transform: translateX(-100%);
+}
+
+.lessonItem {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-radius: 16px;
+    background-color: #d2dae2;
+    margin: 8px 0;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+.lessonItem span {
+    font-size: 18px;
+    font-weight: 600;
+    width: 180px;
+    margin-left: 8px;
+}
+
+.lessonItem img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin: 0 4px;
+}

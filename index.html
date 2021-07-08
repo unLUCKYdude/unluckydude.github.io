@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>Админ-панель</title>
+</head>
+<body>
+    <div id="authModal">
+        <h2>Авторизация</h2>
+        <input type="password" placeholder="Пароль">
+        <button>Войти</button>
+    </div>
+    <div id="classesContainer">
+        <div></div>
+    </div>
+    <div id="sheduleContainer">
+        <div>
+            <div>
+                <img src="src/arrow_icon.svg" width="50" height="50" id="closeSheduleButton" draggable="false" />
+                <h2></h2>
+                <img src="src/edit_icon.svg" width="30" height="30" id="renameClassButton" draggable="false" />
+            </div>
+            <img src="src/trash_icon.svg" width="50" height="50" id="deleteClassButton" draggable="false" />
+        </div>
+        <div></div>
+    </div>
+    <div id="addClassModal">
+        <div>
+            <h2>Добавить новый класс</h2>
+            <input type="text" placeholder="Название класса" maxlength="4">
+            <button>Добавить</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
