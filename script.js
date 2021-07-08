@@ -14,6 +14,7 @@ var db = [
 var currentClass;
 const days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
 const fckngDays = ["Понедельник", "Вторник", "Среду", "Четверг", "Пятницу", "Субботу"];
+var x, y, draggableLessonIndex, draggableScheduleIndex, objY = null;
 
 const openAddClassModal = () => {
     addClassModal.style.display = "flex";
@@ -35,7 +36,9 @@ const closeAddClassModal = () => {
 const openShedule = () => {
     classesContainer.classList.add("leftPositioned");
     sheduleContainer.classList.add("leftPositioned");
-    sheduleContainer.children[0].style.transform = "translateY(0)";
+    setTimeout(() => {
+        sheduleContainer.children[0].style.transform = "translateY(0)";
+    }, 500);
     updateSheduleContainer();
 }
 
@@ -44,6 +47,7 @@ const closeShedule = () => {
     sheduleContainer.classList.remove("leftPositioned");
     sheduleContainer.children[0].style.transform = "translateY(-120px)";
     currentClass = null;
+    setTimeout(() => sheduleContainer.children[1].scrollTo(0, 0), 500);
 }
 
 const createClassItem = (name, isLast, index) => {
@@ -71,13 +75,13 @@ const createLessonItem = (name, lessonIndex, sheduleIndex) => {
     renameIcon.draggable = false;
     deleteIcon.draggable = false;
     span.innerText = name;
+    span.title = name;
     obj.append(span, renameIcon, deleteIcon);
     obj.className = "lessonItem";
     renameIcon.addEventListener("click", () => {
-        console.log(lessonIndex, sheduleIndex);
         const name = prompt("Введите новое название");
         if (!name || !name.trim()) return;
-        span.innerText = db[currentClass].shedule[sheduleIndex][lessonIndex] = name.trim();
+        span.title = span.innerText = db[currentClass].shedule[sheduleIndex][lessonIndex] = name.trim();
     });
     deleteIcon.addEventListener("click", () => {
         const answer = confirm(`Вы уверены, что хотите удалить урок "${db[currentClass].shedule[sheduleIndex][lessonIndex]}"?`);
@@ -87,6 +91,14 @@ const createLessonItem = (name, lessonIndex, sheduleIndex) => {
         setTimeout(() => {
             sheduleContainer.children[1].children[sheduleIndex].children[1].replaceChildren(...db[currentClass].shedule[sheduleIndex].map((item, index) => createLessonItem(item, index, sheduleIndex)));
         }, 300);
+    });
+    obj.addEventListener("mousedown", e => {
+        objY = obj.getBoundingClientRect().y;
+        x = e.x;
+        y = e.y;
+        obj.style.transition = "none";
+        draggableLessonIndex = lessonIndex;
+        draggableScheduleIndex = sheduleIndex;
     });
     return obj;
 }
@@ -167,5 +179,35 @@ addEventListener("load", () => {
         if (!name || !name.trim()) return;
         sheduleContainer.querySelector("h2").innerText = db[currentClass].name = name.trim();
         updateClassesContainer();
+    });
+
+    addEventListener("mousemove", e => {
+        if (objY == null) return;
+        sheduleContainer.children[1].children[draggableScheduleIndex].children[1].children[draggableLessonIndex].style.transform = `translate(${e.x - x}px, ${e.y - y}px)`;
+    });
+
+    addEventListener("mouseup", e => {
+        if (objY == null) return;
+        const container = sheduleContainer.children[1].children[draggableScheduleIndex].children[1];
+        const obj = container.children[draggableLessonIndex];
+        obj.style.transition = "0.3s";
+        for (let i = 0; i < container.children.length; i++) {
+            if (i == draggableLessonIndex) continue;
+            const data = container.children[i].getBoundingClientRect();
+            if (!(e.x < data.x || e.x > data.x + data.width || e.y < data.y || e.y > data.y + data.height)) {
+                obj.style.transform = `translate(0px, ${data.y - objY}px)`;
+                container.children[i].style.transform = `translate(0px, ${objY - data.y}px)`;
+                setTimeout(() => {
+                    const temp = db[currentClass].shedule[draggableScheduleIndex][i];
+                    db[currentClass].shedule[draggableScheduleIndex][i] = db[currentClass].shedule[draggableScheduleIndex][draggableLessonIndex];
+                    db[currentClass].shedule[draggableScheduleIndex][draggableLessonIndex] = temp;
+                    container.replaceChildren(...db[currentClass].shedule[draggableScheduleIndex].map((item, index) => createLessonItem(item, index, draggableScheduleIndex)));
+                }, 300);
+                objY = null;
+                return;
+            }
+        }
+        obj.style.transform = "none";
+        objY = null;
     });
 });
