@@ -212,7 +212,7 @@ body {
     padding: 0 24px;
     align-items: center;
     transform: translateY(-120px);
-    transition: 0.3s 0.5s;
+    transition: 0.3s;
 }
 
 #sheduleContainer > div:first-child::after {
@@ -247,6 +247,7 @@ body {
     overflow: auto;
     justify-content: center;
     align-items: flex-start;
+    overflow-x: hidden;
 }
 
 #sheduleContainer > div:last-child > div {
@@ -315,6 +316,11 @@ body {
     margin: 8px 0;
     box-sizing: border-box;
     transition: 0.3s;
+    cursor: pointer;
+}
+
+.lessonItem:active {
+    background-color: #a4b0be;
 }
 
 .lessonItem span {
@@ -322,6 +328,8 @@ body {
     font-weight: 600;
     width: 180px;
     margin-left: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .lessonItem img {
